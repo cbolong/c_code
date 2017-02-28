@@ -21,7 +21,8 @@ void MultiplyPointer(int *Array)
     {
         for(j=0; j<4; j++)
         {
-            *((Array+i*4)+j) = i*j;
+            //*((Array+i*4)+j) = i*j;
+            Array[i*4+ j] = i*j;
         }
     }
 }
