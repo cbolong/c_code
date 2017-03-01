@@ -50,6 +50,7 @@ void Println(struct USB usb[])
 
 int main()
 {
+    //struct USB mobile;
     struct USB mobile[3];
     //mobile.usb1 = 0;
     //mobile.usb2 = 1;
