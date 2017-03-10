@@ -3,18 +3,19 @@
 #include <pthread.h>
 
 int pass = 0;
+//volatile int pass = 0;
+//It can't show volatile issue
 
 void *func1(void *data){
-
-	sleep(5);
+	sleep(2);
 	pass = rand()%100;
 	printf("thread 1: random [%d]\n", pass);
 	return NULL;
 }
 
 void *func2(void *data){
-    int i = 10;
-	    
+    int i = 5;
+	pass = 0;
     while(i>0)
 	{
 		printf("thread 2:[%d]\n", pass);
