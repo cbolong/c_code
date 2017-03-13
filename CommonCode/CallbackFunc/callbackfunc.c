@@ -1,32 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-typedef struct _MyID
-{
-	int id;
-	char msg[256];
-}MyID;
+#include <pthread.h>
 
-int showMSG(MyID *myid)
+typedef int (*call_def)(int, int);
+
+int (*call)(int, int);
+
+int do_multiply(int i, int j)
 {
-	printf("##id:[%d]  msg:[%s]\n",myid->id, myid->msg);
-	
-	return 3;
+	return i*j;
 }
 
-int (* CALLBACK)(MyID *);
-
-void main()
+void redirect_func(int (*call_this)(int, int))
 {
-	MyID getID;
-	getID.id = 10;
-	strcpy(getID.msg, "Got the message.");
-	//Use normal usage
-	showMSG(&getID);
+	printf("3*4=[%d]\n", call_this(3, 4));
+}
+
+void type_redirect_func(call_def call_this)
+{
+	printf("5*6=[%d]\n", call_this(5, 6));
+}
+
+void main(int argc, char *argv[])
+{
+	call = do_multiply;
+	printf("1*2=[%d]\n", call(1, 2));
 	
-	CALLBACK = showMSG;
-	getID.id = 5;
-	strcpy(getID.msg, "Got callback message.");
-	int rel = CALLBACK(&getID);
-	printf("##rel:[%d]\n", rel);
+	redirect_func(do_multiply);
+	type_redirect_func(do_multiply);
 }
